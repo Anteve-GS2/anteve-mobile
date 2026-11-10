@@ -19,9 +19,12 @@ interface Props {
 function useBreve(deps: unknown[]) {
   const [track, setTrack] = useState(true);
   useEffect(() => {
-    setTrack(true);
-    const t = setTimeout(() => setTrack(false), 600);
-    return () => clearTimeout(t);
+    const start = setTimeout(() => setTrack(true), 0);
+    const stop = setTimeout(() => setTrack(false), 600);
+    return () => {
+      clearTimeout(start);
+      clearTimeout(stop);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
   return track;

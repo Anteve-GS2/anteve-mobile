@@ -6,7 +6,7 @@ import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
-import { ErrorState } from '@/components/ErrorState';
+import { ErrorState } from '@/components/ErrorStage';
 import { LineChart } from '@/components/LineChart';
 import { Loader } from '@/components/Loader';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -96,7 +96,7 @@ export default function Detalhe() {
           <Text style={styles.label}>Relatos recentes</Text>
           {(p.relatosRecentes ?? []).length === 0 && <Text style={styles.text}>Nenhum relato nas últimas 48 h.</Text>}
           {(p.relatosRecentes ?? []).map((r, k) => (
-            <Text key={k} style={styles.text}>"{r.texto}"{r.data ? ` · ${r.data}` : ''}</Text>
+            <Text key={k} style={styles.text}>&quot;{r.texto}&quot;{r.data ? ` · ${r.data}` : ''}</Text>
           ))}
         </Card>
 

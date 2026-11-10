@@ -30,7 +30,7 @@ export default function Perfil() {
           <Text style={styles.nome}>{user?.nome}</Text>
           <Text style={styles.sub}>{user ? PAPEL[user.papel] : ''}</Text>
         </Card>
-        {isGestor && <Button title="Gerenciar comunidades" onPress={() => router.push('/comunidades')} />}
+        {isGestor && <Button title="Gerenciar comunidades" onPress={() => router.push('/comunidade')} />}
         <Button title="Sobre o app" variant="secondary" onPress={() => router.push('/sobre')} />
         <Button title="Sair" variant="secondary" onPress={signOut} />
       </ScrollView>

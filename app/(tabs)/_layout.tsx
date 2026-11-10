@@ -5,10 +5,11 @@ import { colors } from '@/constants/theme';
 import { useSyncFilaRelatos } from '@/hooks/useSyncFilaRelatos';
 
 type IconName = React.ComponentProps<typeof Ionicons>['name'];
+type TabIconProps = { color: unknown; size: number };
 const tab = (title: string, icon: IconName) => ({
   title,
-  tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-    <Ionicons name={icon} color={color} size={size} />
+  tabBarIcon: ({ color, size }: TabIconProps) => (
+    <Ionicons name={icon} color={color == null ? colors.muted : String(color)} size={size} />
   ),
 });
 

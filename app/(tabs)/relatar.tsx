@@ -47,7 +47,11 @@ export default function Relatar() {
   }
 
   useEffect(() => {
-    if (rec.isRecording && rec.durationMillis >= MAX_SEGUNDOS * 1000) parar();
+    if (!rec.isRecording || rec.durationMillis < MAX_SEGUNDOS * 1000) return;
+    const timeout = setTimeout(() => {
+      void parar();
+    }, 0);
+    return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rec.isRecording, rec.durationMillis]);
 
@@ -145,7 +149,7 @@ export default function Relatar() {
         {resultado && (
           <Card>
             <Text style={styles.label}>O que a IA entendeu</Text>
-            {!!resultado.texto && <Text style={styles.text}>"{resultado.texto}"</Text>}
+            {!!resultado.texto && <Text style={styles.text}>&quot;{resultado.texto}&quot;</Text>}
             <Text style={styles.text}>Indicador: {resultado.indicador ?? 'não identificado'}</Text>
             {!!resultado.antecedencia && <Text style={styles.text}>Antecedência: {resultado.antecedencia}</Text>}
             {!!resultado.confianca && <Text style={styles.text}>Confiança: {resultado.confianca}</Text>}

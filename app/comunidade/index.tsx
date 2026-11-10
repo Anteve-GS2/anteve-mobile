@@ -4,7 +4,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
-import { ErrorState } from '@/components/ErrorState';
+import { ErrorState } from '@/components/ErrorStage';
 import { Loader } from '@/components/Loader';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { colors } from '@/constants/theme';
@@ -47,7 +47,7 @@ export default function Comunidades() {
       <ScreenHeader
         title="Comunidades"
         onBack={() => router.back()}
-        right={<Chip label="＋ Nova" onPress={() => router.push('/comunidades/form')} />}
+        right={<Chip label="＋ Nova" onPress={() => router.push('/comunidade/form')} />}
       />
       {loading && !data ? (
         <Loader />
@@ -59,7 +59,7 @@ export default function Comunidades() {
           keyExtractor={(c) => String(c.id)}
           contentContainerStyle={styles.list}
           refreshControl={<RefreshControl refreshing={loading} onRefresh={reload} />}
-          ListHeaderComponent={!!msg ? <Text style={styles.msg}>{msg}</Text> : null}
+          ListHeaderComponent={!!msg ? <Text style={styles.msg}>{msg}</Text> : undefined}
           ListEmptyComponent={<EmptyState title="Nenhuma comunidade" hint="Toque em “Nova” para cadastrar." />}
           renderItem={({ item: c }) => (
             <Card>
@@ -70,7 +70,7 @@ export default function Comunidades() {
                   label="Editar"
                   onPress={() =>
                     router.push({
-                      pathname: '/comunidades/form',
+                      pathname: '/comunidade/form',
                       params: { id: String(c.id), nome: c.nome, latitude: String(c.latitude), longitude: String(c.longitude) },
                     })
                   }

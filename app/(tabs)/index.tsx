@@ -7,7 +7,7 @@ import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
 import { DemoBanner } from '@/components/DemoBanner';
 import { EmptyState } from '@/components/EmptyState';
-import { ErrorState } from '@/components/ErrorState';
+import { ErrorState } from '@/components/ErrorStage';
 import { Loader } from '@/components/Loader';
 import { RiskMap } from '@/components/RiskMap';
 import { ScreenHeader } from '@/components/ScreenHeader';
