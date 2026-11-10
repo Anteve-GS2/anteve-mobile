@@ -10,6 +10,9 @@ interface Props {
   items: ComunidadeMapa[];
   selectedId?: number | null;
   onSelect: (id: number) => void;
+  barcos?: unknown;
+  tempoDias?: number;
+  atrasoHoras?: number;
 }
 
 // Na web o mapa nativo não existe: mostramos a lista. O mapa roda no Expo Go.

@@ -10,6 +10,7 @@ import { ScreenHeader } from '@/components/ScreenHeader';
 import { colors } from '@/constants/theme';
 import { useAsync } from '@/hooks/useAsync';
 import { getMapa } from '@/services/mapa';
+import { calcularBarcos, textoFolga } from '@/utils/logistica';
 import { formatarDias } from '@/utils/risk';
 
 export default function Prioridades() {
@@ -21,6 +22,8 @@ export default function Prioridades() {
     () => [...(data ?? [])].sort((a, b) => (a.diasPrevistos ?? 9999) - (b.diasPrevistos ?? 9999)),
     [data]
   );
+
+  const barcos = useMemo(() => new Map(calcularBarcos(data ?? []).map((b) => [b.id, b])), [data]);
 
   return (
     <View style={styles.flex}>
@@ -45,6 +48,7 @@ export default function Prioridades() {
                 </View>
                 <Text style={styles.sub}>Isolamento em {formatarDias(item.diasPrevistos)}</Text>
                 <Text style={styles.sub}>Índice {item.indice.toFixed(2)}</Text>
+                {barcos.has(item.id) && <Text style={styles.sub}>{textoFolga(barcos.get(item.id)!, 0)}</Text>}
               </Card>
             </Pressable>
           )}
