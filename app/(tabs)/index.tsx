@@ -5,6 +5,7 @@ import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
+import { DemoBanner } from '@/components/DemoBanner';
 import { EmptyState } from '@/components/EmptyState';
 import { ErrorState } from '@/components/ErrorState';
 import { Loader } from '@/components/Loader';
@@ -107,6 +108,7 @@ export default function Mapa() {
       </View>
 
       <View style={styles.panel}>
+        <DemoBanner />
         {data && (
           <View style={styles.row}>
             <Chip label="🚤 Barcos" active={barcosOn} onPress={() => setBarcosOn(!barcosOn)} />

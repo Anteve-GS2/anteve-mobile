@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { colors, space } from '@/constants/theme';
 
 export default function Login() {
-  const { signIn } = useAuth();
+  const { signIn, signInDemo } = useAuth();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
@@ -43,6 +43,7 @@ export default function Login() {
           <Input label="Senha" value={senha} onChangeText={setSenha} secureTextEntry placeholder="••••••••" />
           {!!error && <Text style={styles.error} accessibilityLiveRegion="polite">{error}</Text>}
           <Button title="Entrar" onPress={handleLogin} loading={loading} />
+          <Button title="Modo demonstração" variant="secondary" onPress={signInDemo} />
           <Text style={styles.footer}>
             Não tem conta? <Link href="/cadastro" style={styles.link}>Criar conta</Link>
           </Text>

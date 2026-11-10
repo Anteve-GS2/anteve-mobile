@@ -2,6 +2,7 @@ import { ENDPOINTS } from '@/constants/endpoints';
 import { lerFila, removerDaFila } from '@/storage/filaRelatos';
 import { NovoRelato, Relato } from '@/types/relato';
 import { api } from './api';
+import { demoAtualizarRelato, demoCriarRelato, demoExcluirRelato, demoListarRelatos, isDemo } from './demo';
 
 function mapRelato(r: any): Relato {
   const ind = r?.indicador;
@@ -28,6 +29,7 @@ function toFormData(n: NovoRelato) {
 }
 
 export async function criarRelato(novo: NovoRelato): Promise<Relato> {
+  if (isDemo()) return demoCriarRelato(novo);
   const { data } = await api.post(ENDPOINTS.relatos, toFormData(novo), {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
@@ -35,21 +37,25 @@ export async function criarRelato(novo: NovoRelato): Promise<Relato> {
 }
 
 export async function listarMeusRelatos(): Promise<Relato[]> {
+  if (isDemo()) return demoListarRelatos();
   const { data } = await api.get(ENDPOINTS.relatos);
   const lista: any[] = Array.isArray(data) ? data : data.content ?? [];
   return lista.map(mapRelato);
 }
 
 export async function atualizarRelato(id: number, texto: string) {
+  if (isDemo()) return demoAtualizarRelato(id, texto);
   await api.put(`${ENDPOINTS.relatos}/${id}`, { texto });
 }
 
 export async function excluirRelato(id: number) {
+  if (isDemo()) return demoExcluirRelato(id);
   await api.delete(`${ENDPOINTS.relatos}/${id}`);
 }
 
 // Envia a fila guardada offline. Para na primeira falha de rede.
 export async function enviarFila(): Promise<number> {
+  if (isDemo()) return 0;
   let enviados = 0;
   for (const item of await lerFila()) {
     try {

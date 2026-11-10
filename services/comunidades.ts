@@ -1,9 +1,11 @@
 import { ENDPOINTS } from '@/constants/endpoints';
 import { ComunidadeCrud, ComunidadeInput } from '@/types/comunidade';
 import { api } from './api';
+import { demoAtualizarComunidade, demoCriarComunidade, demoExcluirComunidade, demoListarComunidades, isDemo } from './demo';
 
 // Se a API paginar (Spring Page), isto traz só a primeira página.
 export async function listarComunidadesCrud(): Promise<ComunidadeCrud[]> {
+  if (isDemo()) return demoListarComunidades();
   const { data } = await api.get(ENDPOINTS.comunidades);
   const lista: any[] = Array.isArray(data) ? data : data.content ?? [];
   return lista.map((c) => ({
@@ -15,13 +17,16 @@ export async function listarComunidadesCrud(): Promise<ComunidadeCrud[]> {
 }
 
 export async function criarComunidade(input: ComunidadeInput) {
+  if (isDemo()) return demoCriarComunidade(input);
   await api.post(ENDPOINTS.comunidades, input);
 }
 
 export async function atualizarComunidade(id: number, input: ComunidadeInput) {
+  if (isDemo()) return demoAtualizarComunidade(id, input);
   await api.put(`${ENDPOINTS.comunidades}/${id}`, input);
 }
 
 export async function excluirComunidade(id: number) {
+  if (isDemo()) return demoExcluirComunidade(id);
   await api.delete(`${ENDPOINTS.comunidades}/${id}`);
 }

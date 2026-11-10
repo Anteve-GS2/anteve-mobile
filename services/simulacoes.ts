@@ -2,6 +2,7 @@ import { ENDPOINTS } from '@/constants/endpoints';
 import { Cenario, SimulacaoInput, SimulacaoResultado } from '@/types/simulacao';
 import { normalizarEstado } from '@/utils/risk';
 import { api } from './api';
+import { demoSimular, isDemo } from './demo';
 
 function mapCenario(c: any): Cenario {
   const indice = Number(c?.indice ?? 0);
@@ -20,6 +21,7 @@ function mapCenario(c: any): Cenario {
 }
 
 export async function simular(input: SimulacaoInput): Promise<SimulacaoResultado> {
+  if (isDemo()) return demoSimular(input);
   const { data } = await api.post(ENDPOINTS.simulacoes, input);
   return {
     atual: mapCenario(data.atual ?? data.situacaoAtual),

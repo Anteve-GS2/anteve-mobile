@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
+import { DemoBanner } from '@/components/DemoBanner';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { colors } from '@/constants/theme';
 import { useAuth } from '@/context/AuthContext';
@@ -24,6 +25,7 @@ export default function Perfil() {
     <View style={styles.flex}>
       <ScreenHeader title="Perfil" />
       <ScrollView contentContainerStyle={styles.content}>
+        <DemoBanner />
         <Card>
           <Text style={styles.nome}>{user?.nome}</Text>
           <Text style={styles.sub}>{user ? PAPEL[user.papel] : ''}</Text>

@@ -3,8 +3,10 @@ import { ComunidadeMapa } from '@/types/mapa';
 import { Painel } from '@/types/painel';
 import { normalizarEstado } from '@/utils/risk';
 import { api } from './api';
+import { demoMapa, demoPainel, isDemo } from './demo';
 
 export async function getMapa(): Promise<ComunidadeMapa[]> {
+  if (isDemo()) return demoMapa();
   const { data } = await api.get(ENDPOINTS.mapa);
   const lista: any[] = Array.isArray(data) ? data : data.comunidades ?? data.content ?? [];
   return lista.map((c) => {
@@ -22,6 +24,7 @@ export async function getMapa(): Promise<ComunidadeMapa[]> {
 }
 
 export async function getPainel(id: number | string): Promise<Painel> {
+  if (isDemo()) return demoPainel(Number(id));
   const { data } = await api.get<Painel>(ENDPOINTS.painel(id));
   return data;
 }
