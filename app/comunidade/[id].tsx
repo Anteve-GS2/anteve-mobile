@@ -1,4 +1,5 @@
 import { Badge } from "@/components/Badge";
+import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { Chip } from "@/components/Chip";
 import { LineChart } from "@/components/LineChart";
@@ -6,11 +7,12 @@ import { Loader } from "@/components/Loader";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { colors } from "@/constants/theme";
 import { useAsync } from "@/hooks/useAsync";
+import { useRole } from "@/hooks/useRole";
 import { getPainel } from "@/services/mapa";
 import { EstadoRisco } from "@/types/mapa";
 import { estadoPorIndice, formatarDias, normalizarEstado } from "@/utils/risk";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 function Metric({
   label,
@@ -40,9 +42,7 @@ function ErrorState({
   return (
     <View style={styles.errorState}>
       <Text style={styles.text}>{message}</Text>
-      <Pressable onPress={onRetry} style={styles.retryButton}>
-        <Text style={styles.retryText}>Tentar novamente</Text>
-      </Pressable>
+      <Button title="Tentar novamente" onPress={onRetry} />
     </View>
   );
 }
@@ -50,6 +50,7 @@ function ErrorState({
 export default function Detalhe() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { isGestor } = useRole();
   const {
     data: p,
     loading,
@@ -140,6 +141,17 @@ export default function Detalhe() {
             ))}
           </View>
         </Card>
+        {isGestor && (
+          <Button
+            title="Simular cenários"
+            onPress={() =>
+              router.push({
+                pathname: "/simulador" as any,
+                params: { id: String(id) },
+              })
+            }
+          />
+        )}
       </ScrollView>
     </View>
   );
@@ -149,18 +161,11 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 10, paddingBottom: 32 },
   errorState: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
     padding: 16,
     gap: 12,
   },
-  retryButton: {
-    backgroundColor: colors.teal,
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-  },
-  retryText: { color: colors.bg, fontWeight: "700" },
   row: { flexDirection: "row", gap: 10 },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   label: { fontSize: 12, color: colors.muted },
