@@ -15,7 +15,11 @@ export function Input({ label, error, ...rest }: Props) {
         accessibilityLabel={label}
         placeholderTextColor={colors.muted}
         autoCapitalize="none"
-        style={[styles.input, !!error && { borderColor: colors.danger }]}
+        style={[
+          styles.input,
+          rest.multiline && { height: undefined, minHeight: 96, paddingTop: 12, textAlignVertical: 'top' as const },
+          !!error && { borderColor: colors.danger },
+        ]}
         {...rest}
       />
       {!!error && <Text style={styles.error}>{error}</Text>}
