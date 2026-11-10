@@ -12,7 +12,6 @@ import { RiskMap } from '@/components/RiskMap';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { ESTADOS, RISK } from '@/constants/risk';
 import { colors } from '@/constants/theme';
-import { useAuth } from '@/context/AuthContext';
 import { useAsync } from '@/hooks/useAsync';
 import { getMapa } from '@/services/mapa';
 import { EstadoRisco } from '@/types/mapa';
@@ -20,7 +19,6 @@ import { formatarDias } from '@/utils/risk';
 
 export default function Mapa() {
   const router = useRouter();
-  const { signOut } = useAuth();
   const { data, loading, error, reload } = useAsync(getMapa);
   const [filtro, setFiltro] = useState<EstadoRisco | null>(null);
   const [selId, setSelId] = useState<number | null>(null);
@@ -36,10 +34,7 @@ export default function Mapa() {
       <ScreenHeader
         title="Mapa de risco"
         right={
-          <View style={{ flexDirection: 'row', gap: 8 }}>
-            <Chip label="Atualizar" onPress={reload} />
-            <Chip label="Sair" onPress={signOut} />
-          </View>
+          <Chip label="Atualizar" onPress={reload} />
         }
       />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.legend} contentContainerStyle={styles.legendRow}>
