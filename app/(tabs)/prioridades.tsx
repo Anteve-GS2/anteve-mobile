@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { Badge } from '@/components/Badge';
 import { Card } from '@/components/Card';
 import { EmptyState } from '@/components/EmptyState';
-import { ErrorState } from '@/components/ErrorStage';
+import { ErrorState } from '@/components/ErrorState';
 import { Loader } from '@/components/Loader';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { colors } from '@/constants/theme';
@@ -27,7 +27,7 @@ export default function Prioridades() {
 
   return (
     <View style={styles.flex}>
-      <ScreenHeader title="Fila de abastecimento" />
+      <ScreenHeader cena="barco" title="Fila de abastecimento" />
       {loading && !data ? (
         <Loader />
       ) : error && !data ? (

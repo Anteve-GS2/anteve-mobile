@@ -27,7 +27,7 @@ export default function ComunidadeForm() {
   if (!isGestor) {
     return (
       <View style={styles.flex}>
-        <ScreenHeader title="Comunidade" onBack={() => router.back()} />
+        <ScreenHeader cena="palafitas" title="Comunidade" onBack={() => router.back()} />
         <EmptyState title="Acesso restrito" />
       </View>
     );
@@ -59,7 +59,7 @@ export default function ComunidadeForm() {
 
   return (
     <View style={styles.flex}>
-      <ScreenHeader title={editando ? 'Editar comunidade' : 'Nova comunidade'} onBack={() => router.back()} />
+      <ScreenHeader cena="palafitas" title={editando ? 'Editar comunidade' : 'Nova comunidade'} onBack={() => router.back()} />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Input label="Nome" value={nome} onChangeText={setNome} autoCapitalize="words" error={erros.nome} placeholder="Ex.: Santa Luzia" />
         <Input label="Latitude" value={lat} onChangeText={setLat} error={erros.lat} placeholder="Ex.: -3.35" />

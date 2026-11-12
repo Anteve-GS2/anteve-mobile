@@ -42,7 +42,7 @@ export default function Simulador() {
   if (!isGestor) {
     return (
       <View style={styles.flex}>
-        <ScreenHeader title="Simulador" onBack={() => router.back()} />
+        <ScreenHeader cena="simulador" title="Simulador" onBack={() => router.back()} />
         <EmptyState title="Acesso restrito" hint="Só o perfil Gestor usa o simulador de cenários." />
       </View>
     );
@@ -85,7 +85,7 @@ export default function Simulador() {
 
   return (
     <View style={styles.flex}>
-      <ScreenHeader title="Simulador de cenários" onBack={() => router.back()} />
+      <ScreenHeader cena="simulador" title="Simulador de cenários" onBack={() => router.back()} />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text style={styles.label}>Comunidade</Text>
         <View style={styles.chips}>

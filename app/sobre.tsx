@@ -13,7 +13,7 @@ export default function Sobre() {
 
   return (
     <View style={styles.flex}>
-      <ScreenHeader title="Sobre o app" onBack={() => router.back()} />
+      <ScreenHeader cena="sobre" title="Sobre o app" onBack={() => router.back()} />
       <ScrollView contentContainerStyle={styles.content}>
         <Card>
           <Text style={styles.titulo}>Vazante + Saberes</Text>

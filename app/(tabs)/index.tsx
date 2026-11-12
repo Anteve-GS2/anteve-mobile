@@ -7,7 +7,7 @@ import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
 import { DemoBanner } from '@/components/DemoBanner';
 import { EmptyState } from '@/components/EmptyState';
-import { ErrorState } from '@/components/ErrorStage';
+import { ErrorState } from '@/components/ErrorState';
 import { Loader } from '@/components/Loader';
 import { RiskMap } from '@/components/RiskMap';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -75,7 +75,7 @@ export default function Mapa() {
 
   return (
     <View style={styles.flex}>
-      <ScreenHeader title="Mapa de risco" right={<Chip label="Atualizar" onPress={reload} />} />
+      <ScreenHeader cena="mapa" compacto title="Mapa de risco" right={<Chip label="Atualizar" onPress={reload} />} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.legend} contentContainerStyle={styles.legendRow}>
         {ESTADOS.map((e) => (
           <Chip

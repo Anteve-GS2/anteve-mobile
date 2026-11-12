@@ -5,6 +5,7 @@ import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
+import { ErrorState } from '@/components/ErrorState';
 import { Input } from '@/components/Input';
 import { Loader } from '@/components/Loader';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -90,14 +91,11 @@ export default function MeusRelatos() {
 
   return (
     <View style={styles.flex}>
-      <ScreenHeader title="Meus relatos" right={<Chip label="＋ Novo" onPress={() => router.navigate('/relatar')} />} />
+      <ScreenHeader cena="caderno" title="Meus relatos" right={<Chip label="＋ Novo" onPress={() => router.navigate('/relatar')} />} />
       {loading && !data ? (
         <Loader />
       ) : error && !data ? (
-        <View style={styles.errorState}>
-          <Text style={styles.errorText}>{error}</Text>
-          <Button title="Tentar novamente" onPress={reload} />
-        </View>
+        <ErrorState message={error} onRetry={reload} />
       ) : (
         <FlatList
           data={data ?? []}
@@ -146,6 +144,4 @@ const styles = StyleSheet.create({
   sub: { fontSize: 12, color: colors.muted },
   texto: { fontSize: 14, color: colors.ink, marginVertical: 4 },
   msg: { fontSize: 14, color: colors.ink, backgroundColor: '#FFF4D6', padding: 10, borderRadius: 8 },
-  errorState: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16, gap: 12 },
-  errorText: { fontSize: 14, color: colors.ink, textAlign: 'center' },
 });
