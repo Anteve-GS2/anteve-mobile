@@ -6,7 +6,7 @@ import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
-import { ErrorState } from '@/components/ErrorStage';
+import { ErrorState } from '@/components/ErrorState';
 import { LineChart } from '@/components/LineChart';
 import { Loader } from '@/components/Loader';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -60,7 +60,7 @@ export default function Detalhe() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
-      <ScreenHeader title={p.nome ?? 'Comunidade'} onBack={() => router.back()} />
+      <ScreenHeader cena="detalhe" title={p.nome ?? 'Comunidade'} onBack={() => router.back()} />
       <ScrollView contentContainerStyle={styles.content}>
         <Badge estado={estado} />
         <View style={styles.row}>

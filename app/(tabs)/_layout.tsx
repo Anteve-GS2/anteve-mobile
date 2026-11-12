@@ -1,15 +1,17 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '@/constants/theme';
+import type { BottomTabNavigationOptions } from 'expo-router/build/react-navigation/bottom-tabs/types';
+import { colors, shadow } from '@/constants/theme';
 import { useSyncFilaRelatos } from '@/hooks/useSyncFilaRelatos';
 
 type IconName = React.ComponentProps<typeof Ionicons>['name'];
-type TabIconProps = { color: unknown; size: number };
-const tab = (title: string, icon: IconName) => ({
+type TabOptions = Pick<BottomTabNavigationOptions, 'title' | 'tabBarIcon'>;
+
+const tab = (title: string, icon: IconName): TabOptions => ({
   title,
-  tabBarIcon: ({ color, size }: TabIconProps) => (
-    <Ionicons name={icon} color={color == null ? colors.muted : String(color)} size={size} />
+  tabBarIcon: ({ color, size }) => (
+    <Ionicons name={icon} color={color == null || typeof color === 'number' ? colors.ink : color} size={size} />
   ),
 });
 
@@ -21,7 +23,8 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.teal,
         tabBarInactiveTintColor: colors.muted,
-        tabBarLabelStyle: { fontSize: 12 },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+        tabBarStyle: { height: 66, paddingTop: 6, paddingBottom: 8, backgroundColor: colors.white, borderTopWidth: 0, ...shadow },
       }}
     >
       <Tabs.Screen name="index" options={tab('Mapa', 'map-outline')} />

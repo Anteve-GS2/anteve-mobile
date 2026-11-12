@@ -23,7 +23,7 @@ export default function Perfil() {
   const { isGestor } = useRole();
   return (
     <View style={styles.flex}>
-      <ScreenHeader title="Perfil" />
+      <ScreenHeader cena="perfil" title="Perfil" />
       <ScrollView contentContainerStyle={styles.content}>
         <DemoBanner />
         <Card>

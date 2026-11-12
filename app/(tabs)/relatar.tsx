@@ -110,7 +110,7 @@ export default function Relatar() {
 
   return (
     <View style={styles.flex}>
-      <ScreenHeader title="Gravar relato por voz" />
+      <ScreenHeader cena="relato" title="Gravar relato por voz" />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text style={styles.label}>Comunidade</Text>
         <View style={styles.chips}>

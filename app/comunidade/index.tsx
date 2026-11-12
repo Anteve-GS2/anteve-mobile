@@ -4,7 +4,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { Card } from '@/components/Card';
 import { Chip } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
-import { ErrorState } from '@/components/ErrorStage';
+import { ErrorState } from '@/components/ErrorState';
 import { Loader } from '@/components/Loader';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { colors } from '@/constants/theme';
@@ -25,7 +25,7 @@ export default function Comunidades() {
   if (!isGestor) {
     return (
       <View style={styles.flex}>
-        <ScreenHeader title="Comunidades" onBack={() => router.back()} />
+        <ScreenHeader cena="palafitas" title="Comunidades" onBack={() => router.back()} />
         <EmptyState title="Acesso restrito" hint="Só o perfil Gestor gerencia comunidades." />
       </View>
     );
@@ -45,6 +45,7 @@ export default function Comunidades() {
   return (
     <View style={styles.flex}>
       <ScreenHeader
+        cena="palafitas"
         title="Comunidades"
         onBack={() => router.back()}
         right={<Chip label="＋ Nova" onPress={() => router.push('/comunidade/form')} />}
@@ -59,7 +60,7 @@ export default function Comunidades() {
           keyExtractor={(c) => String(c.id)}
           contentContainerStyle={styles.list}
           refreshControl={<RefreshControl refreshing={loading} onRefresh={reload} />}
-          ListHeaderComponent={!!msg ? <Text style={styles.msg}>{msg}</Text> : undefined}
+          ListHeaderComponent={!!msg ? () => <Text style={styles.msg}>{msg}</Text> : undefined}
           ListEmptyComponent={<EmptyState title="Nenhuma comunidade" hint="Toque em “Nova” para cadastrar." />}
           renderItem={({ item: c }) => (
             <Card>
