@@ -4,6 +4,7 @@ import { Stack, useRouter, useSegments } from 'expo-router';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { colors } from '@/constants/theme';
 import { NetworkBanner } from '@/components/NetworkBanner';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 function Gate() {
   const { token, loading } = useAuth();
@@ -35,8 +36,10 @@ function Gate() {
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <Gate />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Gate />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

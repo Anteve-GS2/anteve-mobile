@@ -8,6 +8,7 @@ import { Chip } from '@/components/Chip';
 import { DemoBanner } from '@/components/DemoBanner';
 import { EmptyState } from '@/components/EmptyState';
 import { ErrorState } from '@/components/ErrorState';
+import { DashboardSummary } from '@/components/DashboardSummary';
 import { Loader } from '@/components/Loader';
 import { Input } from '@/components/Input';
 import { RiskMap } from '@/components/RiskMap';
@@ -103,6 +104,7 @@ export default function Mapa() {
           returnKeyType="search"
         />
       </View>
+      {data && data.length > 0 && <View style={styles.summary}><DashboardSummary items={data} /></View>}
 
       <View style={styles.flex}>
         {loading && !data ? (
@@ -167,6 +169,7 @@ const styles = StyleSheet.create({
   legendRow: { paddingHorizontal: 20, paddingBottom: 10, gap: 8 },
   panel: { padding: 12, gap: 8, backgroundColor: colors.bg },
   search: { paddingHorizontal: 16, paddingBottom: 8, backgroundColor: colors.bg },
+  summary: { paddingHorizontal: 16, paddingBottom: 8, backgroundColor: colors.bg },
   row: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   name: { fontSize: 18, fontWeight: '800', color: colors.ink, flexShrink: 1 },
   sub: { fontSize: 14, color: colors.muted },

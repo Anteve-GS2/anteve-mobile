@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
 import { colors, shadow } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 
 interface Props {
   title: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function Button({ title, onPress, loading, disabled, variant = 'primary' }: Props) {
+  const { colors: themeColors } = useTheme();
   const secondary = variant === 'secondary';
   const off = disabled || loading;
   return (
@@ -21,15 +23,17 @@ export function Button({ title, onPress, loading, disabled, variant = 'primary' 
       disabled={off}
       style={({ pressed }) => [
         styles.base,
-        secondary ? styles.secondary : styles.primary,
+        secondary
+          ? [styles.secondary, { backgroundColor: themeColors.white, borderColor: themeColors.field }]
+          : [styles.primary, { backgroundColor: themeColors.teal }],
         off && styles.off,
         pressed && { transform: [{ scale: 0.98 }] },
       ]}
     >
       {loading ? (
-        <ActivityIndicator color={secondary ? colors.ink : colors.white} />
+        <ActivityIndicator color={secondary ? themeColors.ink : themeColors.white} />
       ) : (
-        <Text style={[styles.text, secondary && { color: colors.tealDark }]}>{title}</Text>
+        <Text style={[styles.text, secondary && { color: themeColors.tealDark }]}>{title}</Text>
       )}
     </Pressable>
   );

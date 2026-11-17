@@ -4,6 +4,7 @@ import { login } from '@/services/auth';
 import { setDemo } from '@/services/demo';
 import { clearSession, getToken, getUser, saveSession } from '@/storage/session';
 import { User } from '@/types/auth';
+import { garantirNotificacaoInicial } from '@/storage/notificacoes';
 
 interface AuthState {
   token: string | null;
@@ -37,6 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setToken(savedToken);
         setUser(savedUser);
       }
+      await garantirNotificacaoInicial();
       setLoading(false);
     })();
   }, []);

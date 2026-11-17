@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '@/context/ThemeContext';
 
 export function DemoBanner() {
   const { token } = useAuth();
+  const { colors } = useTheme();
   if (token !== 'demo') return null;
   return (
-    <View style={styles.wrap} accessibilityRole="alert">
-      <Text style={styles.text}>MODO DEMONSTRAÇÃO · dados fictícios, sem conexão com a API</Text>
+    <View style={[styles.wrap, { backgroundColor: colors.sand }]} accessibilityRole="alert">
+      <Text style={[styles.text, { color: colors.ink }]}>MODO DEMONSTRAÇÃO · dados fictícios, sem conexão com a API</Text>
     </View>
   );
 }

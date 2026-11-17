@@ -20,6 +20,21 @@ export const colors = {
   },
 };
 
+export type ThemeColors = typeof colors;
+
+export const darkColors: ThemeColors = {
+  ...colors,
+  ink: '#F3F6F5',
+  bg: '#101A1E',
+  teal: '#56C5C6',
+  tealDark: '#8DE1DE',
+  tealLight: '#6CD9D5',
+  line: '#2B3C42',
+  field: '#7E9894',
+  muted: '#B5C3C0',
+  white: '#18252A',
+};
+
 export const radius = 16;
 export const space = { xs: 4, sm: 8, md: 12, lg: 20, xl: 28 };
 

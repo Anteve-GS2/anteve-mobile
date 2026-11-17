@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import { StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
 import { colors } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 
 interface Props extends TextInputProps {
   label: string;
@@ -9,10 +10,11 @@ interface Props extends TextInputProps {
 }
 
 export function Input({ label, error, right, onFocus, onBlur, ...rest }: Props) {
+  const { colors: themeColors } = useTheme();
   const [focused, setFocused] = useState(false);
   return (
     <View style={styles.wrap}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, { color: themeColors.muted }]}>{label}</Text>
       <View style={styles.inputRow}>
         <TextInput
           accessibilityLabel={label}
@@ -30,14 +32,15 @@ export function Input({ label, error, right, onFocus, onBlur, ...rest }: Props) 
             styles.input,
             right != null && styles.inputWithRight,
             rest.multiline && { height: undefined, minHeight: 104, paddingTop: 14, textAlignVertical: 'top' as const },
-            focused && { borderColor: colors.teal },
-            !!error && { borderColor: colors.danger },
+            { color: themeColors.ink, backgroundColor: themeColors.white, borderColor: themeColors.line },
+            focused && { borderColor: themeColors.teal },
+            !!error && { borderColor: themeColors.danger },
           ]}
           {...rest}
         />
         {right && <View style={styles.right}>{right}</View>}
       </View>
-      {!!error && <Text style={styles.error}>{error}</Text>}
+      {!!error && <Text style={[styles.error, { color: themeColors.danger }]}>{error}</Text>}
     </View>
   );
 }

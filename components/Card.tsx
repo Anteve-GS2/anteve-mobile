@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, ViewProps } from 'react-native';
 import { colors, shadow } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 
 export function Card({ style, ...rest }: ViewProps) {
-  return <View style={[styles.card, style]} {...rest} />;
+  const { colors: themeColors } = useTheme();
+  return <View style={[styles.card, { backgroundColor: themeColors.white, borderColor: themeColors.line }, style]} {...rest} />;
 }
 
 const styles = StyleSheet.create({
