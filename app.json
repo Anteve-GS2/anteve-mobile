@@ -20,7 +20,7 @@
       "output": "static"
     },
     "extra": {
-      "commitHash": "283aa7c",
+      "commitHash": "1921363",
       "router": {
         "asyncRoutes": {
           "web": true

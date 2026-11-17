@@ -118,7 +118,7 @@ Distribuição pelo Firebase App Distribution, com o professor como tester.
 ### Entrega da Global Solution
 
 - Repositório: https://github.com/ZeroViagem-GS2/anteve-mobile
-- Commit de referência: `283aa7c`
+- Commit de referência: `1921363`
 - Vídeo de demonstração (até 5 minutos): **PREENCHER**
 - App publicado no Firebase: https://anteve-app.web.app/login
 - URL pública da API: **PREENCHER**
