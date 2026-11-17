@@ -49,8 +49,11 @@ que está sendo entregue.
 
 | Perfil | E-mail | Senha |
 |---|---|---|
-| Gestor | _preencher_ | _preencher_ |
-| Morador | _preencher_ | _preencher_ |
+| Conta de teste 1 | proflucas.santos@fiap.com.br | _não documentada_ |
+| Conta de teste 2 | pf2275@fiap.com.br | _não documentada_ |
+
+Os dois e-mails acima estão cadastrados para teste. Os papéis e as senhas devem
+ser informados diretamente aos avaliadores, sem serem versionados no repositório.
 
 ### Modo demonstração
 
@@ -115,7 +118,7 @@ Distribuição pelo Firebase App Distribution, com o professor como tester.
 ### Entrega da Global Solution
 
 - Repositório: https://github.com/ZeroViagem-GS2/anteve-mobile
-- Commit de referência: `679e9e4`
+- Commit de referência: `283aa7c`
 - Vídeo de demonstração (até 5 minutos): **PREENCHER**
 - App publicado no Firebase: https://anteve-app.web.app/login
 - URL pública da API: **PREENCHER**
