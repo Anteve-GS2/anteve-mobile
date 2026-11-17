@@ -6,6 +6,8 @@ import { Hero } from '@/components/Hero';
 import { Input } from '@/components/Input';
 import { useAuth } from '@/context/AuthContext';
 import { colors, space } from '@/constants/theme';
+import { errorMessage } from '@/utils/errors';
+import { validarEmail, validarSenha } from '@/utils/validation';
 
 export default function Login() {
   const { signIn, signInDemo } = useAuth();
@@ -13,22 +15,24 @@ export default function Login() {
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({ email: '', senha: '' });
 
   async function handleLogin() {
-    if (!email.trim() || !senha) {
-      setError('Preencha o e-mail e a senha.');
+    const nextErrors = {
+      email: validarEmail(email) ?? '',
+      senha: validarSenha(senha) ?? '',
+    };
+    setFieldErrors(nextErrors);
+    if (nextErrors.email || nextErrors.senha) {
+      setError('');
       return;
     }
     setError('');
     setLoading(true);
     try {
       await signIn(email.trim(), senha);
-    } catch (e: any) {
-      setError(
-        e?.response?.status === 401 || e?.response?.status === 403
-          ? 'E-mail ou senha inválidos.'
-          : 'Não foi possível entrar. Verifique a conexão e tente de novo.'
-      );
+    } catch (error) {
+      setError(errorMessage(error, 'Não foi possível entrar. Verifique a conexão e tente de novo.'));
     } finally {
       setLoading(false);
     }
@@ -46,8 +50,31 @@ export default function Login() {
 
         <View style={styles.form}>
           <Text style={styles.titulo}>Entrar</Text>
-          <Input label="E-mail" value={email} onChangeText={setEmail} keyboardType="email-address" placeholder="voce@email.com" />
-          <Input label="Senha" value={senha} onChangeText={setSenha} secureTextEntry placeholder="••••••••" />
+          <Input
+            label="E-mail"
+            value={email}
+            onChangeText={(value) => {
+              setEmail(value);
+              if (fieldErrors.email) setFieldErrors((current) => ({ ...current, email: '' }));
+            }}
+            error={fieldErrors.email}
+            keyboardType="email-address"
+            returnKeyType="next"
+            placeholder="voce@email.com"
+          />
+          <Input
+            label="Senha"
+            value={senha}
+            onChangeText={(value) => {
+              setSenha(value);
+              if (fieldErrors.senha) setFieldErrors((current) => ({ ...current, senha: '' }));
+            }}
+            error={fieldErrors.senha}
+            secureTextEntry
+            returnKeyType="done"
+            onSubmitEditing={handleLogin}
+            placeholder="••••••••"
+          />
           {!!error && <Text style={styles.error} accessibilityLiveRegion="polite">{error}</Text>}
           <Button title="Entrar" onPress={handleLogin} loading={loading} />
           <Button title="Modo demonstração" variant="secondary" onPress={signInDemo} />

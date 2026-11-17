@@ -9,6 +9,7 @@ import { colors, space } from '@/constants/theme';
 import { listarComunidades, register } from '@/services/auth';
 import { Comunidade, RegisterPayload } from '@/types/auth';
 import { errorMessage } from '@/utils/errors';
+import { validarEmail, validarNome, validarSenha } from '@/utils/validation';
 
 type PapelCadastro = RegisterPayload['papel'];
 const PAPEIS: { value: PapelCadastro; label: string }[] = [
@@ -27,6 +28,7 @@ export default function Cadastro() {
   const [comunidadeId, setComunidadeId] = useState<number | undefined>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({ nome: '', email: '', senha: '' });
 
   useEffect(() => {
     // Pode exigir token na API; se falhar, o cadastro segue sem escolher comunidade.
@@ -34,8 +36,14 @@ export default function Cadastro() {
   }, []);
 
   async function handleRegister() {
-    if (!nome.trim() || !email.trim() || senha.length < 8) {
-      setError('Preencha nome, e-mail e uma senha com pelo menos 8 caracteres.');
+    const nextErrors = {
+      nome: validarNome(nome) ?? '',
+      email: validarEmail(email) ?? '',
+      senha: validarSenha(senha) ?? '',
+    };
+    setFieldErrors(nextErrors);
+    if (nextErrors.nome || nextErrors.email || nextErrors.senha) {
+      setError('');
       return;
     }
     setError('');
@@ -54,9 +62,43 @@ export default function Cadastro() {
     <View style={styles.flex}>
       <ScreenHeader cena="palafitas" title="Criar conta" onBack={() => router.replace('/login')} />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-        <Input label="Nome completo" value={nome} onChangeText={setNome} autoCapitalize="words" placeholder="Nome" />
-        <Input label="E-mail" value={email} onChangeText={setEmail} keyboardType="email-address" placeholder="voce@email.com" />
-        <Input label="Senha" value={senha} onChangeText={setSenha} secureTextEntry placeholder="mín. 8 caracteres" />
+        <Input
+          label="Nome completo"
+          value={nome}
+          onChangeText={(value) => {
+            setNome(value);
+            if (fieldErrors.nome) setFieldErrors((current) => ({ ...current, nome: '' }));
+          }}
+          error={fieldErrors.nome}
+          autoCapitalize="words"
+          returnKeyType="next"
+          placeholder="Nome"
+        />
+        <Input
+          label="E-mail"
+          value={email}
+          onChangeText={(value) => {
+            setEmail(value);
+            if (fieldErrors.email) setFieldErrors((current) => ({ ...current, email: '' }));
+          }}
+          error={fieldErrors.email}
+          keyboardType="email-address"
+          returnKeyType="next"
+          placeholder="voce@email.com"
+        />
+        <Input
+          label="Senha"
+          value={senha}
+          onChangeText={(value) => {
+            setSenha(value);
+            if (fieldErrors.senha) setFieldErrors((current) => ({ ...current, senha: '' }));
+          }}
+          error={fieldErrors.senha}
+          secureTextEntry
+          returnKeyType="done"
+          onSubmitEditing={handleRegister}
+          placeholder="mín. 8 caracteres"
+        />
 
         <Text style={styles.label}>Seu papel</Text>
         <View style={styles.row}>
