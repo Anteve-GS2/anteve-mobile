@@ -8,13 +8,27 @@
     "userInterfaceStyle": "automatic",
     "android": {
       "package": "br.com.gs2.anteveapp",
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ]
     },
     "web": {
       "output": "static"
     },
     "extra": {
-      "commitHash": "d9bab51"
+      "commitHash": "d9bab51",
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "fcc428f9-5321-4a50-a52a-6e6bbb94f96f"
+      }
     },
     "plugins": [
       "expo-router",

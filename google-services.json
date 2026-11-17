@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "306962539745",
+    "project_id": "anteve-app",
+    "storage_bucket": "anteve-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306962539745:android:8961a8be10bc0a77ab83a0",
+        "android_client_info": {
+          "package_name": "com.fiap.anteve"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOYh_gR18fjOJR11MQ1y9SrwfdGLXxgKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
