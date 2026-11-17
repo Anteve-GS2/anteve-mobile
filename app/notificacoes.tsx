@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { FlatList, RefreshControl, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, RefreshControl, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
@@ -8,6 +8,7 @@ import { ScreenHeader } from '@/components/ScreenHeader';
 import { colors } from '@/constants/theme';
 import { listarNotificacoes, marcarNotificacaoLida, marcarTodasNotificacoesLidas } from '@/storage/notificacoes';
 import { Notificacao } from '@/types/notificacao';
+import { useTheme } from '@/context/ThemeContext';
 
 function dataRelativa(iso: string) {
   const date = new Date(iso);
@@ -16,6 +17,7 @@ function dataRelativa(iso: string) {
 
 export default function Notificacoes() {
   const router = useRouter();
+  const { colors: themeColors } = useTheme();
   const [items, setItems] = React.useState<Notificacao[]>([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -43,7 +45,7 @@ export default function Notificacoes() {
   }
 
   return (
-    <View style={styles.flex}>
+    <View style={[styles.flex, { backgroundColor: themeColors.bg }]}>
       <ScreenHeader cena="sobre" title="Notificações" onBack={() => router.back()} />
       <FlatList
         data={items}
@@ -53,14 +55,16 @@ export default function Notificacoes() {
         ListHeaderComponent={items.some((item) => !item.lida) ? <Button title="Marcar todas como lidas" variant="secondary" onPress={lerTodas} /> : undefined}
         ListEmptyComponent={<EmptyState title="Nenhuma notificação" hint="Novos avisos aparecerão aqui." />}
         renderItem={({ item }) => (
-          <Card style={[styles.item, !item.lida && styles.unread]} accessible accessibilityRole="button" onTouchEnd={() => void ler(item)}>
-            <View style={styles.row}>
-              <Text style={styles.title}>{item.titulo}</Text>
-              {!item.lida && <View style={styles.dot} />}
-            </View>
-            <Text style={styles.message}>{item.mensagem}</Text>
-            <Text style={styles.date}>{dataRelativa(item.criadaEm)}</Text>
-          </Card>
+          <Pressable accessibilityRole="button" accessibilityState={{ selected: item.lida }} onPress={() => void ler(item)}>
+            <Card style={[styles.item, !item.lida && { borderColor: themeColors.teal, borderWidth: 1.5 }]}>
+              <View style={styles.row}>
+                <Text style={[styles.title, { color: themeColors.ink }]}>{item.titulo}</Text>
+                {!item.lida && <View style={[styles.dot, { backgroundColor: themeColors.teal }]} />}
+              </View>
+              <Text style={[styles.message, { color: themeColors.muted }]}>{item.mensagem}</Text>
+              <Text style={[styles.date, { color: themeColors.field }]}>{dataRelativa(item.criadaEm)}</Text>
+            </Card>
+          </Pressable>
         )}
       />
     </View>

@@ -21,6 +21,7 @@ import { criarRelato } from '@/services/relatos';
 import { enfileirar } from '@/storage/filaRelatos';
 import { NovoRelato, Relato } from '@/types/relato';
 import { errorMessage } from '@/utils/errors';
+import { useTheme } from '@/context/ThemeContext';
 
 const MAX_SEGUNDOS = 60;
 const mmss = (ms: number) => {
@@ -29,6 +30,7 @@ const mmss = (ms: number) => {
 };
 
 export default function Relatar() {
+  const { colors: themeColors } = useTheme();
   const { data: comunidades } = useAsync(getMapa);
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
   const rec = useAudioRecorderState(recorder);
@@ -110,17 +112,17 @@ export default function Relatar() {
   }
 
   return (
-    <View style={styles.flex}>
+    <View style={[styles.flex, { backgroundColor: themeColors.bg }]}>
       <ScreenHeader cena="relato" title="Gravar relato por voz" />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-        <Text style={styles.label}>Comunidade</Text>
+        <Text style={[styles.label, { color: themeColors.muted }]}>Comunidade</Text>
         <View style={styles.chips}>
           {(comunidades ?? []).map((c) => (
             <Chip key={c.id} label={c.nome} active={comId === c.id} onPress={() => setComId(c.id)} />
           ))}
         </View>
 
-        <Text style={styles.label}>Conte o que você está vendo na natureza ou no rio</Text>
+        <Text style={[styles.label, { color: themeColors.muted }]}>Conte o que você está vendo na natureza ou no rio</Text>
         <View style={styles.center}>
           <Button
             title={rec.isRecording ? '■ Parar' : uri ? '● Gravar de novo' : '● Gravar'}
@@ -130,6 +132,20 @@ export default function Relatar() {
           <Text style={styles.timer} accessibilityLiveRegion="polite">
             {mmss(rec.durationMillis)} / {mmss(MAX_SEGUNDOS * 1000)}
           </Text>
+          <View
+            accessibilityLabel={`Gravação em ${mmss(rec.durationMillis)} de ${mmss(MAX_SEGUNDOS * 1000)}`}
+            style={[styles.progressTrack, { backgroundColor: themeColors.line }]}
+          >
+            <View
+              style={[
+                styles.progress,
+                {
+                  width: `${Math.min(100, (rec.durationMillis / (MAX_SEGUNDOS * 1000)) * 100)}%`,
+                  backgroundColor: rec.isRecording ? themeColors.danger : themeColors.teal,
+                },
+              ]}
+            />
+          </View>
         </View>
 
         {uri && !rec.isRecording && <Button title="▶ Ouvir antes de enviar" variant="secondary" onPress={ouvir} />}
@@ -143,17 +159,17 @@ export default function Relatar() {
           placeholder="Ex.: o igarapé não passa mais barco"
         />
 
-        {!!erro && <Text style={styles.erro} accessibilityLiveRegion="polite">{erro}</Text>}
-        {!!aviso && <Text style={styles.aviso} accessibilityLiveRegion="polite">{aviso}</Text>}
+        {!!erro && <Text style={[styles.erro, { color: themeColors.danger }]} accessibilityLiveRegion="polite">{erro}</Text>}
+        {!!aviso && <Text style={[styles.aviso, { color: themeColors.ink, backgroundColor: themeColors.sand }]} accessibilityLiveRegion="polite">{aviso}</Text>}
         <Button title="Enviar relato" onPress={enviar} loading={busy} disabled={rec.isRecording} />
 
         {resultado && (
           <Card>
-            <Text style={styles.label}>O que a IA entendeu</Text>
-            {!!resultado.texto && <Text style={styles.text}>&quot;{resultado.texto}&quot;</Text>}
-            <Text style={styles.text}>Indicador: {resultado.indicador ?? 'não identificado'}</Text>
-            {!!resultado.antecedencia && <Text style={styles.text}>Antecedência: {resultado.antecedencia}</Text>}
-            {!!resultado.confianca && <Text style={styles.text}>Confiança: {resultado.confianca}</Text>}
+            <Text style={[styles.label, { color: themeColors.muted }]}>O que a IA entendeu</Text>
+            {!!resultado.texto && <Text style={[styles.text, { color: themeColors.ink }]}>&quot;{resultado.texto}&quot;</Text>}
+            <Text style={[styles.text, { color: themeColors.ink }]}>Indicador: {resultado.indicador ?? 'não identificado'}</Text>
+            {!!resultado.antecedencia && <Text style={[styles.text, { color: themeColors.ink }]}>Antecedência: {resultado.antecedencia}</Text>}
+            {!!resultado.confianca && <Text style={[styles.text, { color: themeColors.ink }]}>Confiança: {resultado.confianca}</Text>}
           </Card>
         )}
       </ScrollView>
@@ -167,6 +183,8 @@ const styles = StyleSheet.create({
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   center: { gap: 8 },
   timer: { fontSize: 24, fontWeight: '800', color: colors.ink, textAlign: 'center' },
+  progressTrack: { height: 8, borderRadius: 99, overflow: 'hidden' },
+  progress: { height: '100%', borderRadius: 99 },
   label: { fontSize: 12, color: colors.muted },
   text: { fontSize: 14, color: colors.ink },
   erro: { color: colors.danger, fontSize: 14 },

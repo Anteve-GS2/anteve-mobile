@@ -17,19 +17,22 @@ import { getPainel } from '@/services/mapa';
 import { EstadoRisco } from '@/types/mapa';
 import { montarAviso } from '@/utils/aviso';
 import { estadoPorIndice, formatarDias, normalizarEstado } from '@/utils/risk';
+import { useTheme } from '@/context/ThemeContext';
 
 function Metric({ label, value, hint }: { label: string; value: string; hint?: string }) {
+  const { colors: themeColors } = useTheme();
   return (
     <Card style={{ flex: 1 }}>
-      <Text style={styles.label}>{label}</Text>
-      <Text style={styles.value}>{value}</Text>
-      {!!hint && <Text style={styles.label}>{hint}</Text>}
+      <Text style={[styles.label, { color: themeColors.muted }]}>{label}</Text>
+      <Text style={[styles.value, { color: themeColors.ink }]}>{value}</Text>
+      {!!hint && <Text style={[styles.label, { color: themeColors.muted }]}>{hint}</Text>}
     </Card>
   );
 }
 
 export default function Detalhe() {
   const router = useRouter();
+  const { colors: themeColors } = useTheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { isGestor } = useRole();
   const [falando, setFalando] = useState(false);
@@ -59,7 +62,7 @@ export default function Detalhe() {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.bg }}>
+    <View style={{ flex: 1, backgroundColor: themeColors.bg }}>
       <ScreenHeader cena="detalhe" title={p.nome ?? 'Comunidade'} onBack={() => router.back()} />
       <ScrollView contentContainerStyle={styles.content}>
         <Badge estado={estado} />
@@ -77,15 +80,15 @@ export default function Detalhe() {
         </View>
 
         <Card>
-          <Text style={styles.label}>Histórico de nível</Text>
+          <Text style={[styles.label, { color: themeColors.muted }]}>Histórico de nível</Text>
           <LineChart values={niveis} />
         </Card>
 
         <Card>
-          <Text style={styles.label}>Indicadores naturais</Text>
-          {(p.indicadores ?? []).length === 0 && <Text style={styles.text}>Nenhum indicador identificado.</Text>}
+          <Text style={[styles.label, { color: themeColors.muted }]}>Indicadores naturais</Text>
+          {(p.indicadores ?? []).length === 0 && <Text style={[styles.text, { color: themeColors.ink }]}>Nenhum indicador identificado.</Text>}
           {(p.indicadores ?? []).map((i, k) => (
-            <Text key={k} style={styles.text}>
+            <Text key={k} style={[styles.text, { color: themeColors.ink }]}>
               {i.nome}
               {i.acertos !== undefined && i.tentativas ? ` · acertou ${i.acertos} de ${i.tentativas}` : ''}
             </Text>
@@ -93,17 +96,17 @@ export default function Detalhe() {
         </Card>
 
         <Card>
-          <Text style={styles.label}>Relatos recentes</Text>
-          {(p.relatosRecentes ?? []).length === 0 && <Text style={styles.text}>Nenhum relato nas últimas 48 h.</Text>}
+          <Text style={[styles.label, { color: themeColors.muted }]}>Relatos recentes</Text>
+          {(p.relatosRecentes ?? []).length === 0 && <Text style={[styles.text, { color: themeColors.ink }]}>Nenhum relato nas últimas 48 h.</Text>}
           {(p.relatosRecentes ?? []).map((r, k) => (
-            <Text key={k} style={styles.text}>&quot;{r.texto}&quot;{r.data ? ` · ${r.data}` : ''}</Text>
+            <Text key={k} style={[styles.text, { color: themeColors.ink }]}>&quot;{r.texto}&quot;{r.data ? ` · ${r.data}` : ''}</Text>
           ))}
         </Card>
 
         <Card>
-          <Text style={styles.label}>Necessidades de abastecimento</Text>
+          <Text style={[styles.label, { color: themeColors.muted }]}>Necessidades de abastecimento</Text>
           <View style={styles.chips}>
-            {(p.necessidades ?? []).length === 0 && <Text style={styles.text}>Sem plano gerado.</Text>}
+            {(p.necessidades ?? []).length === 0 && <Text style={[styles.text, { color: themeColors.ink }]}>Sem plano gerado.</Text>}
             {(p.necessidades ?? []).map((n) => <Chip key={n} label={n} />)}
           </View>
         </Card>

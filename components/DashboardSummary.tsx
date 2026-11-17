@@ -3,9 +3,11 @@ import { Animated, StyleSheet, Text, View } from 'react-native';
 import { Card } from '@/components/Card';
 import { ESTADOS, RISK } from '@/constants/risk';
 import { colors, space } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 import { ComunidadeMapa } from '@/types/mapa';
 
 export function DashboardSummary({ items }: { items: ComunidadeMapa[] }) {
+  const { colors: themeColors } = useTheme();
   const [opacity] = useState(() => new Animated.Value(0));
   const [translateY] = useState(() => new Animated.Value(8));
 
@@ -21,17 +23,20 @@ export function DashboardSummary({ items }: { items: ComunidadeMapa[] }) {
       <Card style={styles.card}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.eyebrow}>VISÃO GERAL</Text>
-            <Text style={styles.title}>Risco das comunidades</Text>
+            <Text style={[styles.eyebrow, { color: themeColors.teal }]}>VISÃO GERAL</Text>
+            <Text style={[styles.title, { color: themeColors.ink }]}>Risco das comunidades</Text>
           </View>
-          <Text style={styles.total}>{items.length}</Text>
+          <Text style={[styles.total, { color: themeColors.teal }]}>{items.length}</Text>
         </View>
+        <Text style={[styles.caption, { color: themeColors.muted }]}>
+          {items.filter((item) => item.estado === 'ELEVADO' || item.estado === 'IMINENTE').length} comunidade(s) exigem atenção imediata
+        </Text>
         <View style={styles.metrics}>
           {ESTADOS.map((estado) => (
             <View key={estado} style={styles.metric}>
               <View style={[styles.dot, { backgroundColor: RISK[estado].color }]} />
-              <Text style={styles.count}>{items.filter((item) => item.estado === estado).length}</Text>
-              <Text style={styles.label}>{RISK[estado].label}</Text>
+              <Text style={[styles.count, { color: themeColors.ink }]}>{items.filter((item) => item.estado === estado).length}</Text>
+              <Text style={[styles.label, { color: themeColors.muted }]}>{RISK[estado].label}</Text>
             </View>
           ))}
         </View>
@@ -51,4 +56,5 @@ const styles = StyleSheet.create({
   dot: { width: 10, height: 10, borderRadius: 5, marginBottom: 2 },
   count: { color: colors.ink, fontSize: 18, fontWeight: '800' },
   label: { color: colors.muted, fontSize: 10 },
+  caption: { fontSize: 12, marginTop: -6 },
 });

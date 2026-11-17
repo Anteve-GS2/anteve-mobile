@@ -14,6 +14,7 @@ export function Hero({ cena, height, children }: Props) {
     <View style={[styles.hero, { height }]}>
       <View style={StyleSheet.absoluteFill} pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
         <Cena nome={cena} />
+        <View style={styles.overlay} />
       </View>
       {children}
     </View>
@@ -27,4 +28,5 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 28,
     borderBottomRightRadius: 28,
   },
+  overlay: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(0, 20, 24, 0.38)' },
 });

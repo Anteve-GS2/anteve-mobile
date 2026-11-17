@@ -23,12 +23,14 @@ import { EstadoRisco } from '@/types/mapa';
 import { aplicarLogistica, calcularBarcos, textoFolga } from '@/utils/logistica';
 import { projetar } from '@/utils/projecao';
 import { formatarDias } from '@/utils/risk';
+import { useTheme } from '@/context/ThemeContext';
 
 const MAX_DIAS = 30;
 const PASSO = 0.25;
 
 export default function Mapa() {
   const router = useRouter();
+  const { colors: themeColors } = useTheme();
   const { data, loading, error, reload } = useAsync(getMapa);
   const [filtro, setFiltro] = useState<EstadoRisco | null>(null);
   const [selId, setSelId] = useState<number | null>(null);
@@ -82,7 +84,7 @@ export default function Mapa() {
   const dia = Math.floor(t);
 
   return (
-    <View style={styles.flex}>
+    <View style={[styles.flex, { backgroundColor: themeColors.bg }]}>
       <ScreenHeader cena="mapa" compacto title="Mapa de risco" right={<Chip label="Atualizar" onPress={reload} />} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.legend} contentContainerStyle={styles.legendRow}>
         {ESTADOS.map((e) => (
@@ -95,7 +97,7 @@ export default function Mapa() {
           />
         ))}
       </ScrollView>
-      <View style={styles.search}>
+      <View style={[styles.search, { backgroundColor: themeColors.bg }]}>
         <Input
           label="Buscar comunidade"
           value={query}
@@ -104,7 +106,7 @@ export default function Mapa() {
           returnKeyType="search"
         />
       </View>
-      {data && data.length > 0 && <View style={styles.summary}><DashboardSummary items={data} /></View>}
+      {data && data.length > 0 && <View style={[styles.summary, { backgroundColor: themeColors.bg }]}><DashboardSummary items={data} /></View>}
 
       <View style={styles.flex}>
         {loading && !data ? (
@@ -125,7 +127,7 @@ export default function Mapa() {
         )}
       </View>
 
-      <View style={styles.panel}>
+      <View style={[styles.panel, { backgroundColor: themeColors.bg }]}>
         <DemoBanner />
         {data && (
           <View style={styles.row}>
@@ -136,7 +138,7 @@ export default function Mapa() {
           </View>
         )}
         {barcosOn && (
-          <Text style={styles.nota}>
+          <Text style={[styles.nota, { color: themeColors.muted }]}>
             Barcos: rota em linha reta a 15 km/h do polo, valores ilustrativos. Comunidade sem folga fica vermelha.
           </Text>
         )}
@@ -144,14 +146,14 @@ export default function Mapa() {
         {selected && (
           <Card>
             <View style={[styles.row, { justifyContent: 'space-between' }]}>
-              <Text style={styles.name}>{selected.nome}</Text>
+              <Text style={[styles.name, { color: themeColors.ink }]}>{selected.nome}</Text>
               <Badge estado={selected.estado} />
             </View>
-            <Text style={styles.sub}>
+            <Text style={[styles.sub, { color: themeColors.muted }]}>
               {dia === 0 ? 'Isolamento em' : `Em ${dia} dias, faltam`} {formatarDias(selected.diasPrevistos)}
             </Text>
             {barcoSel && (
-              <Text style={styles.sub}>
+              <Text style={[styles.sub, { color: themeColors.muted }]}>
                 Barco: {((barcoSel.etaHoras + atraso) / 24).toFixed(1)} dias de viagem · {textoFolga(barcoSel, atraso)}
               </Text>
             )}

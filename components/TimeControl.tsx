@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { colors } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 import { Card } from './Card';
 import { Chip } from './Chip';
 
@@ -14,11 +15,12 @@ interface Props {
 }
 
 export function TimeControl({ dia, max, playing, onChange, onTogglePlay }: Props) {
+  const { colors: themeColors } = useTheme();
   const inteiro = Math.floor(dia);
   return (
     <Card>
       <View style={styles.row}>
-        <Text style={styles.titulo} accessibilityLiveRegion="polite">
+        <Text style={[styles.titulo, { color: themeColors.ink }]} accessibilityLiveRegion="polite">
           {inteiro === 0 ? 'Hoje' : `Daqui a ${inteiro} dias`}
         </Text>
         <Chip label={playing ? '❚❚ Pausar' : '▶ Play'} onPress={onTogglePlay} />
@@ -29,11 +31,11 @@ export function TimeControl({ dia, max, playing, onChange, onTogglePlay }: Props
         step={0.25}
         value={dia}
         onValueChange={onChange}
-        minimumTrackTintColor={colors.teal}
-        thumbTintColor={colors.teal}
+        minimumTrackTintColor={themeColors.teal}
+        thumbTintColor={themeColors.teal}
         accessibilityLabel="Dia da projeção"
       />
-      <Text style={styles.nota}>Projeção feita no app a partir dos dias previstos. Não substitui o cálculo do servidor.</Text>
+      <Text style={[styles.nota, { color: themeColors.muted }]}>Projeção feita no app a partir dos dias previstos. Não substitui o cálculo do servidor.</Text>
     </Card>
   );
 }

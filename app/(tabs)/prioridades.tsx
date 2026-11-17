@@ -12,9 +12,11 @@ import { useAsync } from '@/hooks/useAsync';
 import { getMapa } from '@/services/mapa';
 import { calcularBarcos, textoFolga } from '@/utils/logistica';
 import { formatarDias } from '@/utils/risk';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Prioridades() {
   const router = useRouter();
+  const { colors: themeColors } = useTheme();
   const { data, loading, error, reload } = useAsync(getMapa);
 
   // Menos dias até o isolamento = mais urgente. Sem previsão vai para o fim.
@@ -26,7 +28,7 @@ export default function Prioridades() {
   const barcos = useMemo(() => new Map(calcularBarcos(data ?? []).map((b) => [b.id, b])), [data]);
 
   return (
-    <View style={styles.flex}>
+    <View style={[styles.flex, { backgroundColor: themeColors.bg }]}>
       <ScreenHeader cena="barco" title="Fila de abastecimento" />
       {loading && !data ? (
         <Loader />
@@ -43,12 +45,12 @@ export default function Prioridades() {
             <Pressable accessibilityRole="button" onPress={() => router.push(`/comunidade/${item.id}`)}>
               <Card>
                 <View style={styles.row}>
-                  <Text style={styles.name}>{index + 1}. {item.nome}</Text>
+                  <Text style={[styles.name, { color: themeColors.ink }]}>{index + 1}. {item.nome}</Text>
                   <Badge estado={item.estado} />
                 </View>
-                <Text style={styles.sub}>Isolamento em {formatarDias(item.diasPrevistos)}</Text>
-                <Text style={styles.sub}>Índice {item.indice.toFixed(2)}</Text>
-                {barcos.has(item.id) && <Text style={styles.sub}>{textoFolga(barcos.get(item.id)!, 0)}</Text>}
+                <Text style={[styles.sub, { color: themeColors.muted }]}>Isolamento em {formatarDias(item.diasPrevistos)}</Text>
+                <Text style={[styles.sub, { color: themeColors.muted }]}>Índice {item.indice.toFixed(2)}</Text>
+                {barcos.has(item.id) && <Text style={[styles.sub, { color: themeColors.muted }]}>{textoFolga(barcos.get(item.id)!, 0)}</Text>}
               </Card>
             </Pressable>
           )}
