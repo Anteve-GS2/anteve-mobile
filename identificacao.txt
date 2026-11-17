@@ -2,7 +2,7 @@ GLOBAL SOLUTION 2026/2 - MOBILE APPLICATION DEVELOPMENT
 
 Projeto: Vazante + Saberes
 Repositório: https://github.com/ZeroViagem-GS2/anteve-mobile
-Commit de referência: 1921363
+Commit de referência: gerado automaticamente pelo Git no build
 
 Integrantes:
 - Arthur Brito da Silva - RM562086 - 2TDSPG

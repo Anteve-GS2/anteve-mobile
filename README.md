@@ -41,9 +41,9 @@ Variável de ambiente:
 |---|---|
 | `EXPO_PUBLIC_API_URL` | URL base da API Java (ex.: `https://sua-api.azurewebsites.net`). No celular físico, não use `localhost` |
 
-O hash de referência exibido em **Sobre o app** é configurado em `app.json`, no campo
-`expo.extra.commitHash`. Ao publicar uma nova versão, atualize esse valor para o commit
-que está sendo entregue.
+O hash de referência exibido em **Sobre o app** é obtido automaticamente pelo
+`app.config.js`: localmente, usa `git rev-parse --short=7 HEAD`; em builds do EAS,
+usa `EAS_BUILD_GIT_COMMIT_HASH`. Não é necessário editar o hash manualmente.
 
 ### Usuários de teste
 
@@ -118,7 +118,7 @@ Distribuição pelo Firebase App Distribution, com o professor como tester.
 ### Entrega da Global Solution
 
 - Repositório: https://github.com/ZeroViagem-GS2/anteve-mobile
-- Commit de referência: `1921363`
+- Commit de referência: gerado automaticamente pelo Git no build
 - Vídeo de demonstração (até 5 minutos): **PREENCHER**
 - App publicado no Firebase: https://anteve-app.web.app/login
 - URL pública da API: **PREENCHER**
