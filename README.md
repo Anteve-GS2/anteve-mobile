@@ -29,7 +29,7 @@ App mobile (React Native + Expo) da proposta **Vazante + Saberes**, da Global So
 
 ```bash
 npm install
-cp .env.example .env      # e preencha a URL da API
+copy .env.example .env    # Windows; preencha a URL da API
 npx expo start -c
 ```
 
@@ -40,6 +40,10 @@ Variável de ambiente:
 | Nome | Para que serve |
 |---|---|
 | `EXPO_PUBLIC_API_URL` | URL base da API Java (ex.: `https://sua-api.azurewebsites.net`). No celular físico, não use `localhost` |
+
+O hash de referência exibido em **Sobre o app** é configurado em `app.json`, no campo
+`expo.extra.commitHash`. Ao publicar uma nova versão, atualize esse valor para o commit
+que está sendo entregue.
 
 ### Usuários de teste
 
