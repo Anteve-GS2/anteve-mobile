@@ -1,0 +1,142 @@
+PROMPTS DE IMAGENS - VAZANTE + SABERES
+
+Direção visual comum:
+Fotografia documental realista, comunidade ribeirinha brasileira na Amazônia,
+luz natural, representação respeitosa, cores naturais, sem texto, sem logotipo,
+sem marca d'água, sem aparência de ilustração, sem render 3D, sem pessoas
+deformadas, sem mãos deformadas e sem placas com texto legível.
+
+IMAGENS JÁ DISPONÍVEIS
+
+river-community-sunset.png
+Uso atual: cenas de rio, mapa, simulador e sobre.
+
+Prompt:
+Documentary photograph of an Amazon river community at golden hour, calm dark
+water in the foreground, a small wooden canoe with one local resident, distant
+vegetation and simple riverside houses, warm natural sunlight, authentic
+Brazilian Amazon atmosphere, realistic photography, no text, no logo, no
+watermark.
+
+stilt-village.png
+Uso atual: cenas de palafitas, detalhe, caderno, perfil e estado de erro.
+
+Prompt:
+Documentary photograph of wooden stilt houses in a riverside Amazon community,
+calm river surrounding the homes, wooden walkways, humid tropical vegetation,
+soft morning light, authentic Brazilian Amazon architecture, realistic natural
+photography, no text, no logo, no watermark.
+
+supply-boat.png
+Uso atual: cenas de barco, relato e carregamento.
+
+Prompt:
+Documentary photograph of a small wooden supply boat carrying water containers
+and essential goods along an Amazon river, riverside community in the background,
+natural daylight, realistic Brazilian Amazon landscape, human-centered emergency
+logistics, no text, no logo, no watermark.
+
+PRÓXIMAS IMAGENS - HERO
+
+hero-mapa.png
+Prompt:
+Aerial documentary photograph of a winding Amazon river surrounded by dense
+green forest and small isolated communities, subtle boat routes visible on the
+water, realistic photographic perspective, natural colors, no text, no labels,
+no logo, no watermark.
+
+hero-detalhe.png
+Prompt:
+Documentary photograph of an Amazon riverside community during a low-water
+season, exposed riverbank, wooden house on stilts, local resident observing the
+water level, realistic natural light, respectful non-staged photography, no
+text, no logo, no watermark.
+
+hero-simulador.png
+Prompt:
+Documentary photograph of a community leader analyzing river conditions beside an
+Amazon river, notebook and weather information on a wooden table, river and
+forest in the background, realistic natural light, no readable text, no logo,
+no watermark.
+
+hero-relato.png
+Prompt:
+Documentary photograph of a local resident recording a voice report on a
+smartphone near an Amazon river community, natural expression, wooden house and
+river in the background, authentic Brazilian Amazon setting, no readable screen
+text, no logo, no watermark.
+
+hero-caderno.png
+Prompt:
+Documentary photograph of community reports, a basic smartphone and a notebook
+on a wooden table inside a riverside Amazon home, soft natural window light,
+realistic textures, no readable text, no logo, no watermark.
+
+hero-perfil.png
+Prompt:
+Documentary portrait of a Brazilian Amazon community health worker near a
+riverside settlement, respectful natural expression, river and tropical
+vegetation softly blurred behind, realistic natural light, no text, no logo, no
+watermark.
+
+hero-sobre.png
+Prompt:
+Documentary photograph of dense Amazon vegetation reflected in calm river water,
+subtle sunrise light, peaceful and hopeful atmosphere, natural colors, no people,
+no text, no logo, no watermark.
+
+ESTADOS VAZIOS
+
+state-empty.png
+Prompt:
+Realistic documentary still life of an empty handmade wooden canoe resting on a
+quiet riverbank, soft natural morning light, subtle Amazon vegetation, isolated
+subject, no text, no logo, no watermark.
+
+state-error.png
+Prompt:
+Realistic documentary image of a heavy tropical storm approaching an Amazon
+riverside community, dark clouds, rain over the river, dramatic but respectful
+atmosphere, no text, no logo, no watermark.
+
+state-loading.png
+Prompt:
+Realistic documentary image of a small wooden boat moving slowly through light
+morning mist on an Amazon river, soft motion feeling, hopeful atmosphere, no
+text, no logo, no watermark.
+
+IDENTIDADE DO APP
+
+icon.png
+Prompt:
+Minimal premium mobile app icon representing an Amazon river, a small boat and a
+subtle protection symbol, teal, deep blue and warm yellow palette, clean
+geometric composition, high contrast, no letters, no text, no watermark, square
+format.
+
+splash-icon.png
+Prompt:
+Minimal symbolic image of a small boat crossing a stylized Amazon river, teal
+and warm yellow palette, clean modern mobile app identity, no text, transparent
+background, centered composition.
+
+android-icon-foreground.png
+Prompt:
+Simple high-contrast foreground symbol of a small boat crossing a stylized
+Amazon river, teal and yellow, centered, transparent background, no text,
+Android adaptive icon safe area.
+
+android-icon-background.png
+Prompt:
+Solid deep teal background with a subtle natural river texture, minimal, clean,
+no text, no logo, suitable for an Android adaptive icon background.
+
+android-icon-monochrome.png
+Prompt:
+Monochrome white silhouette of a small boat crossing a winding river, simple
+geometric shape, transparent background, no text, Android adaptive icon format.
+
+favicon.png
+Prompt:
+Minimal square symbol of a river and small boat, teal and yellow, high contrast,
+clean web favicon design, no text, no watermark.
