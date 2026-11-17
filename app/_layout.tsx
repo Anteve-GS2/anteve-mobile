@@ -3,6 +3,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { colors } from '@/constants/theme';
+import { NetworkBanner } from '@/components/NetworkBanner';
 
 function Gate() {
   const { token, loading } = useAuth();
@@ -24,7 +25,12 @@ function Gate() {
       </View>
     );
   }
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <>
+      <NetworkBanner />
+      <Stack screenOptions={{ headerShown: false }} />
+    </>
+  );
 }
 
 export default function RootLayout() {

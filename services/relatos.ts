@@ -62,8 +62,8 @@ export async function enviarFila(): Promise<number> {
       await criarRelato(item);
       await removerDaFila(item.localId);
       enviados += 1;
-    } catch (e: any) {
-      if (!e?.response) break;
+    } catch {
+      break;
     }
   }
   return enviados;

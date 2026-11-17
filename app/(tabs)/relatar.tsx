@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
   AudioModule,
@@ -95,13 +96,13 @@ export default function Relatar() {
     try {
       setResultado(await criarRelato(novo));
       limpar();
-    } catch (e: any) {
-      if (!e?.response) {
+    } catch (error) {
+      if (isAxiosError(error) && !error.response) {
         await enfileirar(novo); // sem sinal: guarda e envia quando a rede voltar
         setAviso('Sem sinal: o relato foi guardado e será enviado quando a conexão voltar.');
         limpar();
       } else {
-        setErro(errorMessage(e, 'Não foi possível enviar o relato.'));
+        setErro(errorMessage(error, 'Não foi possível enviar o relato.'));
       }
     } finally {
       setBusy(false);
