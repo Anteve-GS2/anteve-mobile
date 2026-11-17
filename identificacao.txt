@@ -1,0 +1,15 @@
+GLOBAL SOLUTION 2026/2 - MOBILE APPLICATION DEVELOPMENT
+
+Projeto: Vazante + Saberes
+Repositório: https://github.com/ZeroViagem-GS2/anteve-mobile
+Commit de referência: 679e9e4
+
+Integrantes:
+- Arthur Brito da Silva - RM562086 - 2TDSPG
+- Luiz Felipe Flosi dos Santos - RM563197 - 2TDSPG
+- Pedro Henrique Brum Lopes - RM561780 - 2TDSPG
+
+Links da entrega:
+- Vídeo no YouTube: PREENCHER
+- Firebase App Distribution: PREENCHER
+- API publicada: PREENCHER

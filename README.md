@@ -110,4 +110,15 @@ Ferramenta usada: **Claude (Anthropic)**. Para que foi usada: apoio na estrutura
 
 ## Publicação
 
-Distribuição pelo Firebase App Distribution, com o professor como tester. O hash do commit aparece na tela **Sobre o app**.
+Distribuição pelo Firebase App Distribution, com o professor como tester.
+
+### Entrega da Global Solution
+
+- Repositório: https://github.com/ZeroViagem-GS2/anteve-mobile
+- Commit de referência: `679e9e4`
+- Vídeo de demonstração (até 5 minutos): **PREENCHER**
+- Firebase App Distribution: **PREENCHER**
+- URL pública da API: **PREENCHER**
+
+O arquivo [identificacao.txt](./identificacao.txt) concentra os dados de identificação
+e os links exigidos para a entrega. Substitua os campos **PREENCHER** antes do envio.
