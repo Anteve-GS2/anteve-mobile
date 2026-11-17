@@ -12,7 +12,7 @@ import { ScreenHeader } from '@/components/ScreenHeader';
 import { colors } from '@/constants/theme';
 import { useAsync } from '@/hooks/useAsync';
 import { atualizarRelato, enviarFila, excluirRelato, listarMeusRelatos } from '@/services/relatos';
-import { lerFila } from '@/storage/filaRelatos';
+import { lerFila, removerDaFila } from '@/storage/filaRelatos';
 import { RelatoFila } from '@/types/relato';
 import { confirmar } from '@/utils/confirm';
 import { errorMessage } from '@/utils/errors';
@@ -48,6 +48,12 @@ export default function MeusRelatos() {
     setMsg(n > 0 ? `${n} relato(s) enviado(s).` : 'Ainda sem conexão. Tentaremos de novo.');
   }
 
+  async function removerPendente(localId: string) {
+    if (!(await confirmar('Remover relato pendente?', 'O áudio e o texto serão apagados deste aparelho.'))) return;
+    await removerDaFila(localId);
+    await carregarFila();
+  }
+
   async function salvarEdicao() {
     if (editId === null) return;
     setSalvando(true);
@@ -79,9 +85,15 @@ export default function MeusRelatos() {
         <Card>
           <Text style={styles.nome}>Na fila ({fila.length})</Text>
           {fila.map((f) => (
-            <Text key={f.localId} style={styles.sub}>
-              {f.comunidadeNome ?? 'Relato'} · {formatarData(f.criadoEm)} · aguardando sinal
-            </Text>
+            <View key={f.localId} style={styles.pendingRow}>
+              <View style={styles.pendingCopy}>
+                <Text style={styles.sub}>
+                  {f.comunidadeNome ?? 'Relato'} · {formatarData(f.criadoEm)}
+                </Text>
+                <Text style={styles.sub}>Aguardando conexão</Text>
+              </View>
+              <Chip label="Remover" onPress={() => removerPendente(f.localId)} />
+            </View>
           ))}
           <Button title="Enviar agora" variant="secondary" onPress={enviarAgora} />
         </Card>
@@ -144,4 +156,6 @@ const styles = StyleSheet.create({
   sub: { fontSize: 12, color: colors.muted },
   texto: { fontSize: 14, color: colors.ink, marginVertical: 4 },
   msg: { fontSize: 14, color: colors.ink, backgroundColor: '#FFF4D6', padding: 10, borderRadius: 8 },
+  pendingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
+  pendingCopy: { flex: 1, gap: 2 },
 });
