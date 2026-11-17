@@ -23,6 +23,9 @@
       "output": "server",
       "favicon": "./assets/images/favicon.png"
     },
+    "extra": {
+      "commitHash": "d9bab51"
+    },
     "plugins": [
       "expo-router",
       [
