@@ -1,6 +1,7 @@
 // Endpoints da API Java. Os de /mapa, /comunidades/{id}/painel e /simulacoes
 // estão no PDF. Os demais são suposições: confirmar com quem faz a API.
 export const ENDPOINTS = {
+  health: '/health',
   login: '/auth/login', // a confirmar
   register: '/auth/register', // a confirmar
   comunidades: '/comunidades',

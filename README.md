@@ -63,6 +63,9 @@ Na tela de login, o botão **Modo demonstração** entra como Gestor sem interne
 | CRUD de relatos | `GET`, `POST`, `PUT`, `DELETE /relatos` |
 | Login e cadastro | `POST /auth/login`, `POST /auth/register` |
 
+Antes dos endpoints protegidos, o app pode validar a conectividade com `GET /health`, que
+responde `{ "status": "UP", "service": "anteve-api-java" }` sem exigir token.
+
 Os endpoints estão centralizados em `constants/endpoints.ts`. Confira os nomes e o formato dos campos com a API Java.
 
 ## Estrutura de pastas

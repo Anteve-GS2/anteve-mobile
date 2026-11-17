@@ -12,9 +12,15 @@ export function setUnauthorizedHandler(fn: (() => void) | null) {
   onUnauthorized = fn;
 }
 
+function isPublicEndpoint(url?: string) {
+  return url === ENDPOINTS.login || url === ENDPOINTS.register || url === ENDPOINTS.health;
+}
+
 api.interceptors.request.use(async (config) => {
-  const token = await getToken();
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (!isPublicEndpoint(config.url)) {
+    const token = await getToken();
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
@@ -22,7 +28,7 @@ api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     const url = error.config?.url ?? '';
-    if (error.response?.status === 401 && url !== ENDPOINTS.login) {
+    if (error.response?.status === 401 && !isPublicEndpoint(url)) {
       onUnauthorized?.();
     }
     return Promise.reject(error);
