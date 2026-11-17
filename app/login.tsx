@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { Button } from '@/components/Button';
 import { Hero } from '@/components/Hero';
@@ -13,6 +14,7 @@ export default function Login() {
   const { signIn, signInDemo } = useAuth();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({ email: '', senha: '' });
@@ -70,10 +72,20 @@ export default function Login() {
               if (fieldErrors.senha) setFieldErrors((current) => ({ ...current, senha: '' }));
             }}
             error={fieldErrors.senha}
-            secureTextEntry
+            secureTextEntry={!mostrarSenha}
             returnKeyType="done"
             onSubmitEditing={handleLogin}
             placeholder="••••••••"
+            right={
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                onPress={() => setMostrarSenha((value) => !value)}
+                hitSlop={8}
+              >
+                <Ionicons name={mostrarSenha ? 'eye-off-outline' : 'eye-outline'} size={21} color={colors.muted} />
+              </Pressable>
+            }
           />
           {!!error && <Text style={styles.error} accessibilityLiveRegion="polite">{error}</Text>}
           <Button title="Entrar" onPress={handleLogin} loading={loading} />

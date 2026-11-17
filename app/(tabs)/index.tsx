@@ -9,6 +9,7 @@ import { DemoBanner } from '@/components/DemoBanner';
 import { EmptyState } from '@/components/EmptyState';
 import { ErrorState } from '@/components/ErrorState';
 import { Loader } from '@/components/Loader';
+import { Input } from '@/components/Input';
 import { RiskMap } from '@/components/RiskMap';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { TimeControl } from '@/components/TimeControl';
@@ -34,6 +35,7 @@ export default function Mapa() {
   const [playing, setPlaying] = useState(false);
   const [barcosOn, setBarcosOn] = useState(false);
   const [atrasado, setAtrasado] = useState(false);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     if (!playing) return;
@@ -60,8 +62,13 @@ export default function Mapa() {
   const items = useMemo(() => {
     let lista = projetar(data ?? [], Math.floor(t));
     if (barcosOn) lista = aplicarLogistica(lista, barcosTodos, atraso);
-    return lista.filter((c) => !filtro || c.estado === filtro);
-  }, [data, t, barcosOn, barcosTodos, atraso, filtro]);
+    const normalizedQuery = query.trim().toLocaleLowerCase();
+    return lista.filter(
+      (c) =>
+        (!filtro || c.estado === filtro) &&
+        (!normalizedQuery || c.nome.toLocaleLowerCase().includes(normalizedQuery))
+    );
+  }, [data, t, barcosOn, barcosTodos, atraso, filtro, query]);
 
   const ids = useMemo(() => new Set(items.map((c) => c.id)), [items]);
   const barcosVisiveis = useMemo(
@@ -87,6 +94,15 @@ export default function Mapa() {
           />
         ))}
       </ScrollView>
+      <View style={styles.search}>
+        <Input
+          label="Buscar comunidade"
+          value={query}
+          onChangeText={setQuery}
+          placeholder="Ex.: Santa Luzia"
+          returnKeyType="search"
+        />
+      </View>
 
       <View style={styles.flex}>
         {loading && !data ? (
@@ -150,6 +166,7 @@ const styles = StyleSheet.create({
   legend: { flexGrow: 0 },
   legendRow: { paddingHorizontal: 20, paddingBottom: 10, gap: 8 },
   panel: { padding: 12, gap: 8, backgroundColor: colors.bg },
+  search: { paddingHorizontal: 16, paddingBottom: 8, backgroundColor: colors.bg },
   row: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   name: { fontSize: 18, fontWeight: '800', color: colors.ink, flexShrink: 1 },
   sub: { fontSize: 14, color: colors.muted },

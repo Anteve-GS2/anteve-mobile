@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Button } from '@/components/Button';
 import { Chip } from '@/components/Chip';
@@ -23,6 +24,7 @@ export default function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
   const [papel, setPapel] = useState<PapelCadastro>('MORADOR');
   const [comunidades, setComunidades] = useState<Comunidade[]>([]);
   const [comunidadeId, setComunidadeId] = useState<number | undefined>();
@@ -94,10 +96,20 @@ export default function Cadastro() {
             if (fieldErrors.senha) setFieldErrors((current) => ({ ...current, senha: '' }));
           }}
           error={fieldErrors.senha}
-          secureTextEntry
+          secureTextEntry={!mostrarSenha}
           returnKeyType="done"
           onSubmitEditing={handleRegister}
           placeholder="mín. 8 caracteres"
+          right={
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
+              onPress={() => setMostrarSenha((value) => !value)}
+              hitSlop={8}
+            >
+              <Ionicons name={mostrarSenha ? 'eye-off-outline' : 'eye-outline'} size={21} color={colors.muted} />
+            </Pressable>
+          }
         />
 
         <Text style={styles.label}>Seu papel</Text>
