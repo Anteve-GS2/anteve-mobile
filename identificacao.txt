@@ -11,5 +11,5 @@ Integrantes:
 
 Links da entrega:
 - Vídeo no YouTube: PREENCHER
-- Firebase App Distribution: PREENCHER
+- App publicado no Firebase: https://anteve-app.web.app/login
 - API publicada: PREENCHER

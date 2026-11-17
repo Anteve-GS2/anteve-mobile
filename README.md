@@ -117,7 +117,7 @@ Distribuição pelo Firebase App Distribution, com o professor como tester.
 - Repositório: https://github.com/ZeroViagem-GS2/anteve-mobile
 - Commit de referência: `679e9e4`
 - Vídeo de demonstração (até 5 minutos): **PREENCHER**
-- Firebase App Distribution: **PREENCHER**
+- App publicado no Firebase: https://anteve-app.web.app/login
 - URL pública da API: **PREENCHER**
 
 O arquivo [identificacao.txt](./identificacao.txt) concentra os dados de identificação
